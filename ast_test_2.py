@@ -1,4 +1,7 @@
-# Import ast
+# Simple ast tree test on single function program
+# Returns imports and functions together in dictionary
+
+
 import ast
 
 # Sample Python code

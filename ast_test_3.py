@@ -1,4 +1,3 @@
-# Import ast
 import ast
 
 # Sample Python code
@@ -33,8 +32,6 @@ def extract_functions_with_packages(node):
             function_packages[function_name] = None
 
 # Function to extract imports and update the corresponding package for each function
-
-
 def extract_imports(node):
     for item in node.body:
         if isinstance(item, ast.Import):
@@ -42,13 +39,15 @@ def extract_imports(node):
                 package_name = alias.name
                 # Update the package for each function
                 for function_name in function_packages:
-                    function_packages[function_name] = package_name
+                    if f"{function_name}(" in code:
+                        function_packages[function_name] = package_name
         elif isinstance(item, ast.ImportFrom):
             package_name = item.module
             for alias in item.names:
                 # Update the package for each function
                 for function_name in function_packages:
-                    function_packages[function_name] = package_name
+                    if f"{function_name}(" in code:
+                        function_packages[function_name] = package_name
 
 
 # Extract functions and their packages
